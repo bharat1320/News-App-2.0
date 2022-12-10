@@ -1,22 +1,23 @@
 package com.project.news.ui.home
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.project.news.News
 import com.project.news.R
 import com.project.news.databinding.FragmentHomeBinding
 import com.project.news.ui.home.adapters.NewsItemClicked
 import com.project.news.ui.home.adapters.NewsRvAdapter
 import com.project.news.viewModel.NewsViewModel
+
 
 class HomeFragment : Fragment(), NewsItemClicked {
     lateinit var binding :FragmentHomeBinding
@@ -100,11 +101,13 @@ class HomeFragment : Fragment(), NewsItemClicked {
     }
 
     override fun newsClicked(item: News) {
-        val toast = Toast(requireContext())
-        val view = ImageView(requireContext())
-        Glide.with(requireContext()).load(item.urlToImage).into(view)
-        toast.setView(view)
-        toast.show()
+//        val toast = Toast(requireContext())
+//        val view = ImageView(requireContext())
+//        Glide.with(requireContext()).load(item.urlToImage).into(view)
+//        toast.setView(view)
+//        toast.show()
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(item.url))
+        startActivity(browserIntent)
     }
 
 }
