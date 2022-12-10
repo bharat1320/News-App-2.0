@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/home_countries_filter_constraint"
+        style="@style/customDropDownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/border_margin"
+        android:dropDownHeight="@dimen/cardview_compat_inset_shadow"
+        android:inputType="none"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <AutoCompleteTextView
+            android:id="@+id/home_country_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/country"
+            android:textSize="@dimen/text_size_15sp"
+            android:dropDownHeight="250dp"
+            android:inputType="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/home_categories_filter_constraint"
+        style="@style/customDropDownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/border_margin"
+        android:dropDownHeight="@dimen/cardview_compat_inset_shadow"
+        android:inputType="none"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_countries_filter_constraint">
+
+        <AutoCompleteTextView
+            android:id="@+id/home_categories_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dropDownHeight="250dp"
+            android:inputType="none"
+            android:text="@string/category"
+            android:textSize="@dimen/text_size_15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/border_margin"
+        android:layout_marginTop="@dimen/drawable_padding"
+        android:text="@string/downloads"
+        android:textSize="@dimen/text_size_11sp"
+        app:drawableTopCompat="@drawable/ic_black_downloads"
+        app:layout_constraintBottom_toBottomOf="@+id/home_countries_filter_constraint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_news"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingTop="@dimen/border_margin"
+        app:layout_constraintTop_toBottomOf="@+id/home_categories_filter_constraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/rv_news_item"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">News</string>
+    <string name="country">Country</string>
+    <string name="category">Category</string>
+    <string name="news">News</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="downloads">Downloads</string>
+
+    <string-array name="news_countries">
+        <item>India - in</item>
+        <item>USA - us</item>
+        <item>Australia - au</item>
+        <item>Russia - ru</item>
+        <item>Singapore - sg</item>
+        <item>South Korea - kr</item>
+        <item>China - cn</item>
+        <item>Israel - il</item>
+        <item>Japan - jp</item>
+        <item>United Kingdom - gb</item>
+    </string-array>
+
+    <string-array name="news_categories">
+        <item>All</item>
+        <item>Business</item>
+        <item>Entertainment</item>
+        <item>Health</item>
+        <item>Science</item>
+        <item>Sports</item>
+        <item>Technology</item>
+    </string-array>
+
+</resources>
