@@ -15,7 +15,7 @@
         android:layout_marginHorizontal="@dimen/border_margin"
         android:dropDownHeight="@dimen/cardview_compat_inset_shadow"
         android:inputType="none"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/home_bookmarks"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -41,7 +41,7 @@
         android:layout_marginHorizontal="@dimen/border_margin"
         android:dropDownHeight="@dimen/cardview_compat_inset_shadow"
         android:inputType="none"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/home_bookmarks"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_countries_filter_constraint">
 
@@ -60,15 +60,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/imageView"
+        android:id="@+id/home_bookmarks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/border_margin"
-        android:layout_marginTop="@dimen/drawable_padding"
-        android:text="@string/downloads"
+        android:text="@string/bookmarks"
         android:textSize="@dimen/text_size_11sp"
-        app:drawableTopCompat="@drawable/ic_black_downloads"
-        app:layout_constraintBottom_toBottomOf="@+id/home_countries_filter_constraint"
+        android:textStyle="bold"
+        app:drawableTopCompat="@drawable/ic_bookmark_list"
+        app:layout_constraintBottom_toBottomOf="@+id/home_categories_filter_constraint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -19,6 +19,7 @@ import com.project.news.databinding.FragmentHomeBinding
 import com.project.news.ui.MainActivity
 import com.project.news.ui.home.adapters.NewsItemClicked
 import com.project.news.ui.home.adapters.NewsRvAdapter
+import com.project.news.ui.home.bookmarks.HomeBookmarksFragment
 import com.project.news.viewModel.NewsViewModel
 import kotlinx.coroutines.*
 
@@ -103,6 +104,10 @@ class HomeFragment : Fragment(), NewsItemClicked {
         binding.homeCategoriesFilter.setOnItemClickListener { parent, view, position, id ->
             lastSelectedCategory = categories[position]
             getData()
+        }
+
+        binding.homeBookmarks.setOnClickListener {
+            (activity as MainActivity).loadFragment(HomeBookmarksFragment(),Bundle())
         }
     }
 
