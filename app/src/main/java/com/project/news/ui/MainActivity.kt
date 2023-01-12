@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.project.news.R
+import com.project.news.database.AppDatabase
 import com.project.news.databinding.ActivityMainBinding
 import com.project.news.ui.home.HomeFragment
 

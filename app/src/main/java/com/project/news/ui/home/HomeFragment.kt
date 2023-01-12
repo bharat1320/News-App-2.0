@@ -11,12 +11,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.project.news.News
 import com.project.news.R
+import com.project.news.data.Bookmark
+import com.project.news.data.News
+import com.project.news.data.newsToBookmark
+import com.project.news.database.AppDatabase
 import com.project.news.databinding.FragmentHomeBinding
+import com.project.news.ui.MainActivity
 import com.project.news.ui.home.adapters.NewsItemClicked
 import com.project.news.ui.home.adapters.NewsRvAdapter
 import com.project.news.viewModel.NewsViewModel
+import com.project.news.viewModel.dao.BookmarksDao
+import kotlinx.coroutines.*
 
 
 class HomeFragment : Fragment(), NewsItemClicked {
@@ -28,6 +34,7 @@ class HomeFragment : Fragment(), NewsItemClicked {
     var lastSelectedCountry = "in"
     var lastSelectedCategory = "all"
 
+    private lateinit var appDb : AppDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +54,7 @@ class HomeFragment : Fragment(), NewsItemClicked {
         vm = ViewModelProvider(this)[NewsViewModel::class.java]
         categories = resources.getStringArray(R.array.news_categories)
         countries = resources.getStringArray(R.array.news_countries)
+        appDb = AppDatabase.getDatabaseInstance(activity as MainActivity)
 
         adapters()
 
@@ -101,13 +109,32 @@ class HomeFragment : Fragment(), NewsItemClicked {
     }
 
     override fun newsClicked(item: News) {
-//        val toast = Toast(requireContext())
-//        val view = ImageView(requireContext())
-//        Glide.with(requireContext()).load(item.urlToImage).into(view)
-//        toast.setView(view)
-//        toast.show()
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(item.url))
         startActivity(browserIntent)
+    }
+
+    override fun addToBookmark(item: News) {
+        CoroutineScope(Dispatchers.IO).launch {
+            appDb.bookmarksDao().addToBookmarks(Bookmark(0,item.title,item.url,item.urlToImage))
+        }
+    }
+
+    override fun removeFromBookmarkClicked(item: News) {
+        CoroutineScope(Dispatchers.IO).launch {
+            appDb.bookmarksDao().deleteFromBookmarks(Bookmark(0,item.title,item.url,item.urlToImage))
+        }
+    }
+
+    override fun shareClicked(item: News) {
+        shareText(item.url)
+    }
+
+    fun shareText(body: String?) {
+        val txtIntent = Intent(Intent.ACTION_SEND)
+        txtIntent.type = "text/plain"
+        txtIntent.putExtra(Intent.EXTRA_SUBJECT, "Share this news through...")
+        txtIntent.putExtra(Intent.EXTRA_TEXT, body)
+        startActivity(Intent.createChooser(txtIntent, "Share"))
     }
 
 }
