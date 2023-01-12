@@ -14,14 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.news.R
 import com.project.news.data.Bookmark
 import com.project.news.data.News
-import com.project.news.data.newsToBookmark
 import com.project.news.database.AppDatabase
 import com.project.news.databinding.FragmentHomeBinding
 import com.project.news.ui.MainActivity
 import com.project.news.ui.home.adapters.NewsItemClicked
 import com.project.news.ui.home.adapters.NewsRvAdapter
 import com.project.news.viewModel.NewsViewModel
-import com.project.news.viewModel.dao.BookmarksDao
 import kotlinx.coroutines.*
 
 
@@ -115,13 +113,13 @@ class HomeFragment : Fragment(), NewsItemClicked {
 
     override fun addToBookmark(item: News) {
         CoroutineScope(Dispatchers.IO).launch {
-            appDb.bookmarksDao().addToBookmarks(Bookmark(0,item.title,item.url,item.urlToImage))
+            appDb.bookmarksDao().addToBookmarks(Bookmark(item.url, item.title, item.urlToImage))
         }
     }
 
     override fun removeFromBookmarkClicked(item: News) {
         CoroutineScope(Dispatchers.IO).launch {
-            appDb.bookmarksDao().deleteFromBookmarks(Bookmark(0,item.title,item.url,item.urlToImage))
+            appDb.bookmarksDao().deleteFromBookmarks(Bookmark(item.url, item.title, item.urlToImage))
         }
     }
 
