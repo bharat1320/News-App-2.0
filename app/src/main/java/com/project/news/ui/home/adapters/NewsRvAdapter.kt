@@ -1,5 +1,6 @@
 package com.project.news.ui.home.adapters
 
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,8 @@ import com.project.news.databinding.RvNewsItemBinding
 class NewsRvAdapter (val context :Context,
                      val data : ArrayList<News> = arrayListOf(),
                      val rv : RecyclerView,
-                     val listener : NewsItemClicked) : RecyclerView.Adapter<NewsRvAdapter.NewsRvViewHolder>() {
+                     val listener : NewsItemClicked,
+                     val isBookmarkPage :Boolean = false) : RecyclerView.Adapter<NewsRvAdapter.NewsRvViewHolder>() {
 
     inner class NewsRvViewHolder(var binding: RvNewsItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -41,6 +43,10 @@ class NewsRvAdapter (val context :Context,
 //        by default animation view is hidden
         view.newsLike.visibility = View.GONE
 
+        if(isBookmarkPage) {
+            setLike(view.newsLike,true)
+        }
+
         Glide.with(context).load(item.urlToImage).placeholder(R.drawable.ic_background_news).into(view.newsImage)
         view.newsTitle.text = item.title
 
@@ -54,8 +60,25 @@ class NewsRvAdapter (val context :Context,
             listener.shareClicked(item)
         }
         view.newsLike.setOnClickListener {
-            setLike(view.newsLike,false)
-            listener.removeFromBookmarkClicked(item)
+            if(isBookmarkPage) {
+//                If it is from bookmark page then give warning
+                val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+                builder.setMessage("Are you sure you want to remove this from bookmark.." )
+                builder.setCancelable(true)
+                builder.setPositiveButton("Yes") { dialog, id ->
+                    setLike(view.newsLike,false)
+                    listener.removeFromBookmarkClicked(item)
+                    dialog.cancel()
+                }
+                builder.setNegativeButton("No") { dialog, id ->
+                    dialog.cancel()
+                }
+                val alert: AlertDialog = builder.create()
+                alert.show()
+            } else {
+                setLike(view.newsLike,false)
+                listener.removeFromBookmarkClicked(item)
+            }
         }
         view.newsLikeBackground.setOnClickListener {
             setLike(view.newsLike,true)

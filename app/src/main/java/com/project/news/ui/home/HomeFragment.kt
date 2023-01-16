@@ -80,9 +80,9 @@ class HomeFragment : Fragment(), NewsItemClicked {
         binding.homeCategoriesFilter.setAdapter(
             ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categories))
 
-        adapter = NewsRvAdapter(requireContext(), arrayListOf(),binding.homeNews,this)
-        binding.homeNews.layoutManager = LinearLayoutManager(requireContext())
-        binding.homeNews.adapter = adapter
+        adapter = NewsRvAdapter(requireContext(), arrayListOf(),binding.homeNewsRv,this)
+        binding.homeNewsRv.layoutManager = LinearLayoutManager(requireContext())
+        binding.homeNewsRv.adapter = adapter
     }
 
     fun observers() {
