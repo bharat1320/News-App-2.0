@@ -6,13 +6,17 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import com.project.news.R
 import com.project.news.database.AppDatabase
 import com.project.news.databinding.ActivityMainBinding
 import com.project.news.ui.home.HomeFragment
+import com.project.news.viewModel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var mainViewModel: MainViewModel
 
     companion object{
         fun LOG(data :String) {
@@ -25,39 +29,38 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        loadFragment(HomeFragment(), Bundle())
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
+        observer()
+
+        loadFragment(HomeFragment())
 
     }
 
-    @SuppressLint("WrongConstant")
-    fun loadFragment(fragment: Fragment, bundle: Bundle, fromFragment: Fragment? = null, hideAnimation : Boolean = false, onGoingBack :Boolean = false) {
-        /**       put BackStack History     **/
-        if (fromFragment != null) {
-            bundle.putBoolean(fromFragment::class.simpleName, true)
+    fun observer() {
+        mainViewModel.callFragment.observe(this) {
+            if(it != null) {
+                loadFragment(it)
+            }
         }
 
-//        CommonFunctions.hideKeyboard(this,binding.navView)
+        mainViewModel.backPressed.observe(this) {
+            this.onBackPressed()
+        }
+    }
 
-        fragment.arguments = bundle
-
+    @SuppressLint("WrongConstant")
+    private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
-            if(hideAnimation) {
-                /**            It is showing bottom nav view ,thus it is parent fragment and is also not coming from back button
-                thus it doesn't need animation **/
-                replace(R.id.main_fragment_container, fragment)
-                commit()
-            }
-            else {
-                setCustomAnimations(
-                    R.anim.enter_from_right,
-                    R.anim.exit_to_left,
-                    R.anim.enter_from_left,
-                    R.anim.exit_to_right
-                )
-                add(R.id.main_fragment_container, fragment)
-                addToBackStack(null)
-                commit()
-            }
+            setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_left,
+                R.anim.enter_from_left,
+                R.anim.exit_to_right
+            )
+            add(R.id.main_fragment_container, fragment)
+            addToBackStack(null)
+            commit()
         }
 
         LOG("FragmentOpen :- ${fragment::class.simpleName.toString()}")

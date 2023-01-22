@@ -21,6 +21,7 @@ import com.project.news.databinding.FragmentHomeBookmarksBinding
 import com.project.news.ui.MainActivity
 import com.project.news.ui.home.adapters.NewsItemClicked
 import com.project.news.ui.home.adapters.NewsRvAdapter
+import com.project.news.viewModel.MainViewModel
 import com.project.news.viewModel.NewsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,10 +30,15 @@ import kotlinx.coroutines.launch
 class HomeBookmarksFragment : Fragment(), NewsItemClicked {
     lateinit var binding : FragmentHomeBookmarksBinding
     lateinit var vm : NewsViewModel
+    lateinit var mainViewModel: MainViewModel
     lateinit var adapter: NewsRvAdapter
 
     private lateinit var appDb : AppDatabase
     var newsData : MutableLiveData<List<Bookmark>> = MutableLiveData()
+
+    companion object{
+        fun newInstance() : HomeBookmarksFragment = this.newInstance()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +52,7 @@ class HomeBookmarksFragment : Fragment(), NewsItemClicked {
         super.onViewCreated(view, savedInstanceState)
 
         vm = ViewModelProvider(this)[NewsViewModel::class.java]
+        mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         appDb = AppDatabase.getDatabaseInstance(activity as MainActivity)
 
         adapters()
@@ -91,7 +98,7 @@ class HomeBookmarksFragment : Fragment(), NewsItemClicked {
 
     fun listener() {
         binding.homeBookmarksBack.setOnClickListener {
-            (activity as MainActivity).onBackPressed()
+            mainViewModel.backPressed()
         }
     }
 

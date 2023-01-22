@@ -1,83 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <androidx.cardview.widget.CardView
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/very_short_margin"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/news_like"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:elevation="2dp"
+        android:layout_marginEnd="@dimen/short_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/news_title"
+        app:lottie_rawRes="@raw/button_liked_big" />
+    <!--            app:lottie_autoPlay="true"-->
+    <!--            app:lottie_loop="true"-->
+
+    <ImageView
+        android:id="@+id/news_like_background"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:elevation="1dp"
+        android:padding="6dp"
+        android:layout_marginEnd="@dimen/short_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/news_title"
+        android:src="@drawable/ic_star_grey" />
+
+    <ImageView
+        android:id="@+id/news_image"
         android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/white"
+        android:contentDescription="@string/content_description"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_background_news"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/news_title"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/border_margin"
-        android:layout_marginHorizontal="@dimen/border_margin"
-        app:cardCornerRadius="@dimen/news_item_corner_radius">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/very_short_margin"
-            android:orientation="vertical">
+        android:layout_below="@id/news_image"
+        android:layout_alignBaseline="@id/news_share"
+        android:layout_alignBottom="@+id/news_share"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="4dp"
+        android:layout_toStartOf="@+id/news_share"
+        android:ellipsize="end"
+        android:lines="2"
+        android:maxLines="@integer/home_news_title_max_lines"
+        android:paddingHorizontal="@dimen/short_margin"
+        android:text="@string/app_name"
+        android:textColor="@color/black"
+        android:textIsSelectable="true"
+        android:textSize="@dimen/text_size_14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/news_share"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/news_image" />
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/news_like"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="@dimen/border_margin"
-                android:elevation="2dp"
-                app:lottie_rawRes="@raw/button_liked_big" />
-            <!--            app:lottie_autoPlay="true"-->
-            <!--            app:lottie_loop="true"-->
+    <ImageView
+        android:id="@+id/news_share"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_below="@id/news_image"
+        android:layout_toStartOf="@+id/news_like_background"
+        android:elevation="1dp"
+        android:paddingVertical="6dp"
+        android:src="@drawable/ic_button_share"
+        app:layout_constraintEnd_toStartOf="@+id/news_like_background"
+        app:layout_constraintTop_toTopOf="@+id/news_title" />
 
-            <ImageView
-                android:id="@+id/news_like_background"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignStart="@id/news_like"
-                android:layout_alignEnd="@id/news_image"
-                android:layout_alignTop="@id/news_like"
-                android:elevation="1dp"
-                android:padding="6dp"
-                android:src="@drawable/ic_star_grey" />
-
-            <ImageView
-                android:id="@+id/news_image"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_background_news"
-                android:background="@color/white"
-                android:contentDescription="@string/content_description"
-                android:layout_alignParentTop="true"/>
-
-            <TextView
-                android:id="@+id/news_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/news_image"
-                android:layout_alignBottom="@+id/news_share"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="@dimen/very_short_margin"
-                android:layout_toStartOf="@+id/news_share"
-                android:layout_alignBaseline="@id/news_share"
-                android:ellipsize="end"
-                android:maxLines="@integer/home_news_title_max_lines"
-                android:paddingHorizontal="@dimen/short_margin"
-                android:text="@string/app_name"
-                android:textColor="@color/black"
-                android:textIsSelectable="true"
-                android:textSize="@dimen/text_size_13sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/news_share"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_alignEnd="@id/news_image"
-                android:layout_below="@id/news_image"
-                android:elevation="1dp"
-                android:padding="5dp"
-                android:src="@drawable/ic_button_share" />
-
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

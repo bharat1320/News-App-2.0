@@ -20,6 +20,7 @@ import com.project.news.ui.MainActivity
 import com.project.news.ui.home.adapters.NewsItemClicked
 import com.project.news.ui.home.adapters.NewsRvAdapter
 import com.project.news.ui.home.bookmarks.HomeBookmarksFragment
+import com.project.news.viewModel.MainViewModel
 import com.project.news.viewModel.NewsViewModel
 import kotlinx.coroutines.*
 
@@ -27,6 +28,7 @@ import kotlinx.coroutines.*
 class HomeFragment : Fragment(), NewsItemClicked {
     lateinit var binding :FragmentHomeBinding
     lateinit var vm :NewsViewModel
+    lateinit var mainViewModel: MainViewModel
     lateinit var adapter: NewsRvAdapter
     lateinit var countries: Array<String>
     lateinit var categories: Array<String>
@@ -51,6 +53,8 @@ class HomeFragment : Fragment(), NewsItemClicked {
         super.onViewCreated(view, savedInstanceState)
 
         vm = ViewModelProvider(this)[NewsViewModel::class.java]
+        mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+
         categories = resources.getStringArray(R.array.news_categories)
         countries = resources.getStringArray(R.array.news_countries)
         appDb = AppDatabase.getDatabaseInstance(activity as MainActivity)
@@ -107,7 +111,7 @@ class HomeFragment : Fragment(), NewsItemClicked {
         }
 
         binding.homeBookmarks.setOnClickListener {
-            (activity as MainActivity).loadFragment(HomeBookmarksFragment(),Bundle())
+            mainViewModel.callFragment(HomeBookmarksFragment.newInstance(),Bundle())
         }
     }
 
