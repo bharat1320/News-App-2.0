@@ -1,8 +1,9 @@
 package com.project.news.baseApplication
 
 import android.app.Application
-import android.content.Context
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class BaseApplication : Application() {
 
     companion object{
@@ -13,9 +14,6 @@ class BaseApplication : Application() {
         super.onCreate()
 
         context = this
-
-
-
 
     }
 }

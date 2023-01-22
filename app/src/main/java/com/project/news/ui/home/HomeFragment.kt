@@ -22,9 +22,10 @@ import com.project.news.ui.home.adapters.NewsRvAdapter
 import com.project.news.ui.home.bookmarks.HomeBookmarksFragment
 import com.project.news.viewModel.MainViewModel
 import com.project.news.viewModel.NewsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
-
+@AndroidEntryPoint
 class HomeFragment : Fragment(), NewsItemClicked {
     lateinit var binding :FragmentHomeBinding
     lateinit var vm :NewsViewModel
@@ -70,7 +71,7 @@ class HomeFragment : Fragment(), NewsItemClicked {
     }
 
     fun getData() {
-        vm.repository.getNews(lastSelectedCountry,lastSelectedCategory)
+        vm.getNews(lastSelectedCountry,lastSelectedCategory)
     }
 
     fun adapters() {

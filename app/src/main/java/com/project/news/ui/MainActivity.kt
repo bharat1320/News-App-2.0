@@ -13,7 +13,9 @@ import com.project.news.database.AppDatabase
 import com.project.news.databinding.ActivityMainBinding
 import com.project.news.ui.home.HomeFragment
 import com.project.news.viewModel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel

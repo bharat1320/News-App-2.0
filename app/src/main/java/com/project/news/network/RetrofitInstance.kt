@@ -1,26 +1,37 @@
 package com.project.news.network
 
-import androidx.fragment.app.Fragment
 import com.project.news.BuildConfig.BASE_URL
+import com.project.news.viewModel.repository.api.NewsApis
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
-class RetrofitInstance : Fragment() {
+@Module
+@InstallIn(SingletonComponent::class)
+object RetrofitInstance {
 
-    companion object {
+    @Provides
+    @Singleton
+    fun createNewsApiService() : NewsApis {
+        return createService().create(NewsApis::class.java)
+    }
 
-        fun createService(): Retrofit {
-            return Retrofit.Builder()
-                .client(client)
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
+    fun createService(): Retrofit {
+        return Retrofit.Builder()
+            .client(client)
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
 
-        var client = OkHttpClient.Builder().addInterceptor(getInterceptor()).build()
+    var client = OkHttpClient.Builder().addInterceptor(getInterceptor()).build()
 //            .addInterceptor(
 //                ChuckerInterceptor.Builder(context)
 //                    .collector(ChuckerCollector(context))
@@ -30,10 +41,9 @@ class RetrofitInstance : Fragment() {
 //                    .build()
 //            ).build()
 
-        private fun getInterceptor(): Interceptor {
-            val interceptor = HttpLoggingInterceptor()
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-            return interceptor
-        }
+    private fun getInterceptor(): Interceptor {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        return interceptor
     }
 }

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -82,4 +83,12 @@ dependencies {
 
 //    Using animated views
     implementation 'com.airbnb.android:lottie:5.2.0'
+
+//    Using hilt
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+}
+
+kapt {
+    correctErrorTypes true
 }
