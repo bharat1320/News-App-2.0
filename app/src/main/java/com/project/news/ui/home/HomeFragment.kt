@@ -112,7 +112,7 @@ class HomeFragment : Fragment(), NewsItemClicked {
         }
 
         binding.homeBookmarks.setOnClickListener {
-            mainViewModel.callFragment(HomeBookmarksFragment.newInstance(),Bundle())
+            mainViewModel.callFragment(HomeBookmarksFragment(),Bundle())
         }
     }
 

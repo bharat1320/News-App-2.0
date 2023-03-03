@@ -36,10 +36,6 @@ class HomeBookmarksFragment : Fragment(), NewsItemClicked {
     private lateinit var appDb : AppDatabase
     var newsData : MutableLiveData<List<Bookmark>> = MutableLiveData()
 
-    companion object{
-        fun newInstance() : HomeBookmarksFragment = this.newInstance()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

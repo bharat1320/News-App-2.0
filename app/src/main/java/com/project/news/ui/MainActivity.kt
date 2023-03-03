@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         LOG("FragmentOpen :- ${fragment::class.simpleName.toString()}")
     }
 
-    //get current fragment ,get current fragment displayed
+    // get current fragment displayed
     override fun onBackPressed() {
         val f = supportFragmentManager.findFragmentById(R.id.main_fragment_container).toString()
         if(f.contains(HomeFragment::class.simpleName.toString())) {
