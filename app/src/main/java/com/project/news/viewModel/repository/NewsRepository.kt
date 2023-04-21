@@ -1,15 +1,12 @@
 package com.project.news.viewModel.repository
 
 import com.project.news.network.URLS
-import com.project.news.viewModel.repository.api.NewsApis
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import com.project.news.viewModel.repository.api.NewsApi
 import java.util.*
 import javax.inject.Inject
 
-@ActivityRetainedScoped
-class NewsRepository
-@Inject constructor(
-    private val api : NewsApis
+class NewsRepository @Inject constructor(
+    private val api : NewsApi
 ) {
     suspend fun getNews(country :String = "in", category :String? = null): Map<String, Any> {
 //        Make Request Query
