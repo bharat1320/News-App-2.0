@@ -1,6 +1,9 @@
 package com.project.news.modules
 
+import android.app.Application
+import androidx.lifecycle.ViewModelProvider
 import com.project.news.BuildConfig
+import com.project.news.viewModel.MainViewModel
 import com.project.news.viewModel.repository.NewsRepository
 import com.project.news.viewModel.repository.api.NewsApi
 import dagger.Module

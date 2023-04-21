@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.news.data.Bookmark
 import com.project.news.data.News
 import com.project.news.database.AppDatabase
@@ -27,9 +29,9 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class HomeBookmarksFragment : Fragment(), NewsItemClicked {
     lateinit var binding : FragmentHomeBookmarksBinding
-//    var vm : NewsViewModel by viewModels()
-//    var mainViewModel: MainViewModel by viewModels()
     lateinit var adapter: NewsRvAdapter
+    val vm : NewsViewModel by viewModels()
+    lateinit var mainViewModel: MainViewModel
 
     private lateinit var appDb : AppDatabase
     var newsData : MutableLiveData<List<Bookmark>> = MutableLiveData()
@@ -45,6 +47,7 @@ class HomeBookmarksFragment : Fragment(), NewsItemClicked {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appDb = AppDatabase.getDatabaseInstance(activity as MainActivity)
+        mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
         adapters()
 
@@ -64,19 +67,19 @@ class HomeBookmarksFragment : Fragment(), NewsItemClicked {
     }
 
     fun adapters() {
-//        adapter = NewsRvAdapter(requireContext(), arrayListOf(),binding.homeBookmarksNewsRv,this,true)
-//        binding.homeBookmarksNewsRv.layoutManager = LinearLayoutManager(requireContext())
-//        binding.homeBookmarksNewsRv.adapter = adapter
+        adapter = NewsRvAdapter(requireContext(), arrayListOf(),binding.homeBookmarksNewsRv,this,true)
+        binding.homeBookmarksNewsRv.layoutManager = LinearLayoutManager(requireContext())
+        binding.homeBookmarksNewsRv.adapter = adapter
     }
 
     fun observers() {
-//        vm.newsResponse.observe(viewLifecycleOwner){
-//            adapter.replaceData(it)
-//        }
-//
-//        vm.newsErrorResponse.observe(viewLifecycleOwner){
-//            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-//        }
+        vm.newsResponse.observe(viewLifecycleOwner){
+            adapter.replaceData(it)
+        }
+
+        vm.newsErrorResponse.observe(viewLifecycleOwner){
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
 
         newsData.observe(viewLifecycleOwner){ bookmarksData->
             val data = arrayListOf<News>()
@@ -89,7 +92,7 @@ class HomeBookmarksFragment : Fragment(), NewsItemClicked {
 
     fun listener() {
         binding.homeBookmarksBack.setOnClickListener {
-//            mainViewModel.backPressed()
+            mainViewModel.backPressed()
         }
     }
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.news.R
@@ -28,7 +29,7 @@ import kotlinx.coroutines.*
 @AndroidEntryPoint
 class HomeFragment : Fragment(), NewsItemClicked {
     lateinit var binding :FragmentHomeBinding
-    lateinit var vm :NewsViewModel
+    val vm :NewsViewModel by viewModels()
     lateinit var mainViewModel: MainViewModel
     lateinit var adapter: NewsRvAdapter
     lateinit var countries: Array<String>
@@ -52,13 +53,9 @@ class HomeFragment : Fragment(), NewsItemClicked {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        vm = ViewModelProvider(this)[NewsViewModel::class.java]
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
-        categories = resources.getStringArray(R.array.news_categories)
-        countries = resources.getStringArray(R.array.news_countries)
-        appDb = AppDatabase.getDatabaseInstance(activity as MainActivity)
+        setData()
 
         adapters()
 
@@ -68,6 +65,12 @@ class HomeFragment : Fragment(), NewsItemClicked {
 
         listener()
 
+    }
+
+    fun setData() {
+        categories = resources.getStringArray(R.array.news_categories)
+        countries = resources.getStringArray(R.array.news_countries)
+        appDb = AppDatabase.getDatabaseInstance(activity as MainActivity)
     }
 
     fun getData() {
