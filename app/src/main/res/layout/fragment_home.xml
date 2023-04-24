@@ -67,7 +67,8 @@
         android:text="@string/bookmarks"
         android:textSize="@dimen/text_size_11sp"
         android:textStyle="bold"
-        app:drawableTopCompat="@drawable/ic_bookmark_list"
+        android:textColor="@color/black"
+        app:drawableTopCompat="@drawable/ic_bookmark_list2"
         app:layout_constraintBottom_toBottomOf="@+id/home_categories_filter_constraint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

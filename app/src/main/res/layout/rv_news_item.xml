@@ -13,9 +13,10 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:elevation="2dp"
-        android:layout_marginEnd="@dimen/short_margin"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/news_share"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/news_title"
+        app:layout_constraintTop_toTopOf="@+id/news_share"
         app:lottie_rawRes="@raw/button_liked_big" />
     <!--            app:lottie_autoPlay="true"-->
     <!--            app:lottie_loop="true"-->
@@ -24,12 +25,12 @@
         android:id="@+id/news_like_background"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:elevation="1dp"
         android:padding="6dp"
-        android:layout_marginEnd="@dimen/short_margin"
+        android:src="@drawable/ic_star_grey"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/news_like"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/news_title"
-        android:src="@drawable/ic_star_grey" />
+        app:layout_constraintTop_toTopOf="@+id/news_like" />
 
     <ImageView
         android:id="@+id/news_image"
@@ -45,12 +46,6 @@
         android:id="@+id/news_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/news_image"
-        android:layout_alignBaseline="@id/news_share"
-        android:layout_alignBottom="@+id/news_share"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="4dp"
-        android:layout_toStartOf="@+id/news_share"
         android:ellipsize="end"
         android:lines="2"
         android:maxLines="@integer/home_news_title_max_lines"
@@ -60,6 +55,8 @@
         android:textIsSelectable="true"
         android:textSize="@dimen/text_size_14sp"
         android:textStyle="bold"
+        android:layout_marginVertical="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/news_share"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/news_image" />
@@ -73,6 +70,7 @@
         android:elevation="1dp"
         android:paddingVertical="6dp"
         android:src="@drawable/ic_button_share"
+        app:layout_constraintBottom_toBottomOf="@+id/news_title"
         app:layout_constraintEnd_toStartOf="@+id/news_like_background"
         app:layout_constraintTop_toTopOf="@+id/news_title" />
 
