@@ -23,41 +23,31 @@
             android:id="@+id/home_country_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/country"
-            android:textSize="@dimen/text_size_15sp"
             android:dropDownHeight="250dp"
             android:inputType="none"
+            android:text="@string/country"
+            android:textSize="@dimen/text_size_15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/home_categories_filter_constraint"
-        style="@style/customDropDownMenu"
-        android:layout_width="0dp"
+    <HorizontalScrollView
+        android:id="@+id/home_categories_chip_constraint"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/border_margin"
-        android:dropDownHeight="@dimen/cardview_compat_inset_shadow"
-        android:inputType="none"
-        app:layout_constraintEnd_toStartOf="@+id/home_bookmarks"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_countries_filter_constraint">
 
-        <AutoCompleteTextView
-            android:id="@+id/home_categories_filter"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:dropDownHeight="250dp"
-            android:inputType="none"
-            android:text="@string/category"
-            android:textSize="@dimen/text_size_15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TouchTargetSizeCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/home_categories_chip_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleSelection="true"
+            android:paddingHorizontal="@dimen/border_margin" />
+    </HorizontalScrollView>
 
     <TextView
         android:id="@+id/home_bookmarks"
@@ -65,11 +55,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/border_margin"
         android:text="@string/bookmarks"
+        android:textColor="@color/black"
         android:textSize="@dimen/text_size_11sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
         app:drawableTopCompat="@drawable/ic_bookmark_list2"
-        app:layout_constraintBottom_toBottomOf="@+id/home_categories_filter_constraint"
+        app:layout_constraintBottom_toBottomOf="@+id/home_countries_filter_constraint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -78,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:paddingTop="@dimen/border_margin"
-        app:layout_constraintTop_toBottomOf="@+id/home_categories_filter_constraint"
+        app:layout_constraintTop_toBottomOf="@+id/home_categories_chip_constraint"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/rv_news_item"/>
 

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 import com.project.news.R
 import com.project.news.data.Bookmark
 import com.project.news.data.News
@@ -46,7 +47,7 @@ class HomeFragment : Fragment(), NewsItemClicked {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         binding.homeCountryFilter.setText("India")
-        binding.homeCategoriesFilter.setText("All")
+//        binding.homeCategoriesFilter.setText("All")
 
         return binding.root
     }
@@ -82,11 +83,12 @@ class HomeFragment : Fragment(), NewsItemClicked {
         countries.forEach {
             countriesShow.add(it.dropLast(5))
         }
-
+        addCategoryChips(categories)
         binding.homeCountryFilter.setAdapter(
-            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, countriesShow))
-        binding.homeCategoriesFilter.setAdapter(
-            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categories))
+            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, countriesShow)
+        )
+
+
 
         adapter = NewsRvAdapter(requireContext(), arrayListOf(),binding.homeNewsRv,this)
         binding.homeNewsRv.layoutManager = LinearLayoutManager(requireContext())
@@ -106,11 +108,6 @@ class HomeFragment : Fragment(), NewsItemClicked {
     fun listener() {
         binding.homeCountryFilter.setOnItemClickListener { parent, view, position, id ->
             lastSelectedCountry = countries[position].substringAfter("-").replace(" ","")
-            getData()
-        }
-
-        binding.homeCategoriesFilter.setOnItemClickListener { parent, view, position, id ->
-            lastSelectedCategory = categories[position]
             getData()
         }
 
@@ -146,6 +143,24 @@ class HomeFragment : Fragment(), NewsItemClicked {
         txtIntent.putExtra(Intent.EXTRA_SUBJECT, "Share this news through...")
         txtIntent.putExtra(Intent.EXTRA_TEXT, body)
         startActivity(Intent.createChooser(txtIntent, "Share"))
+    }
+
+    var lastSelectedChip : Chip? = null
+    fun addCategoryChips(data: Array<String>) {
+        binding.homeCategoriesChipGroup.removeAllViews()
+        data.forEach {
+            val chip = Chip(requireContext())
+            chip.text = it
+            chip.setChipBackgroundColorResource(R.color.light_grey)
+            chip.setOnClickListener { view ->
+                lastSelectedChip?.setChipBackgroundColorResource(R.color.light_grey)
+                lastSelectedChip = chip
+                chip.setChipBackgroundColorResource(R.color.teal_200)
+                lastSelectedCategory = it
+                getData()
+            }
+            binding.homeCategoriesChipGroup.addView(chip)
+        }
     }
 
 }
