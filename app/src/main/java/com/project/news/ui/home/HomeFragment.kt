@@ -148,10 +148,14 @@ class HomeFragment : Fragment(), NewsItemClicked {
     var lastSelectedChip : Chip? = null
     fun addCategoryChips(data: Array<String>) {
         binding.homeCategoriesChipGroup.removeAllViews()
-        data.forEach {
+        data.forEachIndexed { index, it ->
             val chip = Chip(requireContext())
             chip.text = it
             chip.setChipBackgroundColorResource(R.color.light_grey)
+            if(index == 0) {
+                lastSelectedChip = chip
+                chip.setChipBackgroundColorResource(R.color.teal_200)
+            }
             chip.setOnClickListener { view ->
                 lastSelectedChip?.setChipBackgroundColorResource(R.color.light_grey)
                 lastSelectedChip = chip
