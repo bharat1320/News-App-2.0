@@ -47,7 +47,6 @@ class HomeFragment : Fragment(), NewsItemClicked {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         binding.homeCountryFilter.setText("India")
-//        binding.homeCategoriesFilter.setText("All")
 
         return binding.root
     }
@@ -87,8 +86,6 @@ class HomeFragment : Fragment(), NewsItemClicked {
         binding.homeCountryFilter.setAdapter(
             ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, countriesShow)
         )
-
-
 
         adapter = NewsRvAdapter(requireContext(), arrayListOf(),binding.homeNewsRv,this)
         binding.homeNewsRv.layoutManager = LinearLayoutManager(requireContext())
